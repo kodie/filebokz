@@ -1,0 +1,43 @@
+{
+  "name": "filebokz",
+  "version": "0.0.1",
+  "description": "A tiny, dependency-free, highly customizable and configurable, easy to use file input with some pretty sweet features.",
+  "keywords": [
+    "box",
+    "drag",
+    "drop",
+    "file",
+    "html",
+    "input",
+    "javascript",
+    "js",
+    "no-jquery",
+    "upload",
+    "vanilla"
+  ],
+  "author": {
+    "name": "Kodie Grantham",
+    "email": "kodie.grantham@gmail.com",
+    "url": "https://kodieg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kodie/filebokz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kodie/filebokz/issues"
+  },
+  "homepage": "https://kodie.github.io/filebokz",
+  "main": "filebokz.js",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-css-cli": "^5.3.3",
+    "uglify-js": "^3.10.4"
+  },
+  "scripts": {
+    "build": "npm run build-css && npm run build-js",
+    "build-css": "cleancss --batch ./*.css --batch-suffix '.min' --output dist --debug --source-map",
+    "build-js": "uglifyjs filebokz.js --comments /^!/ --compress --mangle --output dist/filebokz.min.js --source-map \"url='filebokz.min.js.map'\" --verbose",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

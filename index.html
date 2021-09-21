@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+  <head>
+    <title>filebokz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+    <link rel="stylesheet" href="dist/filebokz.min.css" />
+    <!-- <link rel="stylesheet" href="filebokz.css" /> -->
+    <link rel="stylesheet" href="dist/filebokz-theme.min.css" />
+    <!-- <link rel="stylesheet" href="filebokz-theme.css" /> -->
+    <style type="text/css">
+      body {
+        --color: #5185b3;
+        color: #5185b3;
+        color: var(--color);
+      }
+
+      header, footer {
+        background-color: #e9ecef;
+      }
+
+      footer {
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      a {
+        color: #5185b3;
+        color: var(--color);
+        text-decoration: underline;
+      }
+
+      button {
+        float: right;
+      }
+
+      button + button {
+        margin-right: 1rem;
+      }
+
+      .github-fork-ribbon:before {
+        background-color: #5185b3;
+        background-color: var(--color);
+      }
+
+      .block {
+        background-color: #5185b3;
+        background-color: var(--color);
+        color: #fff;
+        margin-bottom: 2rem;
+        padding: 1rem;
+      }
+
+      .block::after {
+        clear: both;
+        content: '';
+        display: block;
+      }
+
+      .row > * {
+        overflow: hidden;
+      }
+
+      .info {
+        font-size: .75rem;
+      }
+
+      #example-6 .filebokz {
+        background: none;
+        text-align: center;
+      }
+
+      #example-6 .filebokz label {
+        background-color: #eee;
+        margin: 0 auto;
+      }
+
+      #example-6 .filebokz label {
+        border-radius: 50%;
+        height: 200px;
+        width: 200px;
+       }
+
+      #example-6 .filebokz.is-draggable label::after {
+        background: none;
+        border: 4px dashed #5185b3;
+        border-color: var(--color);
+        border-radius: 50%;
+        margin: auto;
+        height: 180px;
+        width: 180px;
+      }
+
+      #example-6 .filebokz.is-draggable label:hover::after,
+      #example-6 .filebokz.is-draggable.is-dragging label::after,
+      #example-6 .filebokz.is-draggable.in-focus label::after {
+        animation: rotation 10s infinite linear;
+      }
+
+      #example-6 .filebokz label i {
+        font-size: 100px;
+      }
+
+      #example-6 .filebokz .files .file {
+        height: 100%;
+        width: 100%;
+      }
+
+      #example-6 .filebokz .files .file img {
+        border-radius: 50%;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      #example-6 .filebokz .error {
+        color: #fff;
+        margin-top: 1rem;
+      }
+
+      @keyframes rotation {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(359deg);
+        }
+      }
+    </style>
+    <script type="text/javascript" src="dist/filebokz.min.js"></script>
+    <!-- <script type="text/javascript" src="filebokz.js"></script> -->
+    <script type="text/javascript">
+      window.addEventListener('load', function () {
+        var mainColor = document.getElementById('main-color')
+
+        mainColor.addEventListener('change', function (e) {
+          var color = e.currentTarget.value
+          var filebokzes = document.getElementsByClassName('filebokz')
+
+          console.log(color)
+
+          document.body.style.setProperty('--color', color)
+
+          for (var i = 0; i < filebokzes.length; i++) {
+            filebokzes[i].style.setProperty('--color', color)
+          }
+        })
+
+        filebokz()
+        filebokz('.custom-filebokz', false)
+      })
+    </script>
+  </head>
+  <body>
+    <a class="github-fork-ribbon" href="https://github.com/kodie/filebokz" data-ribbon="Check me out on GitHub" title="Check me out on GitHub">Check me out on GitHub</a>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">filebokz</h1>
+        <p class="lead">A tiny, dependency-free, highly customizable and configurable, easy to use file input with some pretty sweet features.</p>
+        <p><a href="https://github.com/kodie/filebokz" target="_blank">https://github.com/kodie/filebokz</a></p>
+        <input type="color" id="main-color" value="#5185b3">
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Features</h2>
+      <ul>
+        <li>Tiny (JS ~9kb + CSS ~1kb = ~10kb total minified [add an additional ~4kb if using the theme])</li>
+        <li>Zero dependencies</li>
+        <li>Use as little (or as much) HTML markup as you want</li>
+        <li>Optional default CSS styling (which looks really cool)</li>
+        <li>Drag-and-drop</li>
+        <li>Append files to the input</li>
+        <li>Remove individual files from the input</li>
+        <li>Drag files out of the box to remove from the input</li>
+        <li>Drag files between multiple `filebokz` elements</li>
+        <li>Files are all managed with the `file` input, so they are submitted with your form and AJAX isn't required (however you can definitely use it if you wish)</li>
+        <li>Preview images before they are uploaded to your server (and specify images or HTML content to display for files that aren't images)</li>
+        <li>Specify allowed file extensions, max number of files, max individual file size, and max total file size, as well as the error messages that are displayed when those rules are broken (however you'll definitally want to implement some server-side validation)</li>
+        <li>Pretty much everything is configurable and flexible</li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h2>Examples</h2>
+      <div class="row">
+        <div class="col-md">
+          <div class="block" id="example-1">
+            <h3>Simple</h3>
+            <form action="#">
+
+              <div class="filebokz">
+                <input type="file" id="file-1" name="file" />
+                <label for="file-1">
+                  <strong class="no-files">Choose a file</strong>
+                  <span class="no-files is-draggable">or drag it here</span>
+                  <span class="files"></span>
+                  <span class="error-msg"></span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-light">Submit</button>
+              <button type="reset" class="btn btn-light">Reset</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md">
+          <div class="block" id="example-2">
+            <h3>Multiple Files</h3>
+            <form action="#">
+
+              <div class="filebokz">
+                <input type="file" id="file-2" name="file" multiple />
+                <label for="file-2">
+                  <strong class="no-files">Choose file(s)</strong>
+                  <span class="no-files is-draggable">or drag them here</span>
+                  <span class="files"></span>
+                  <span class="error-msg"></span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-light">Submit</button>
+              <button type="reset" class="btn btn-light">Reset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md">
+          <div class="block" id="example-3">
+            <h3>File Previews</h3>
+            <form action="#">
+
+              <div class="filebokz" data-max-size="524288000">
+                <input type="file" id="file-3" name="file" multiple />
+                <label for="file-3">
+                  <strong class="no-files">Choose file(s)</strong>
+                  <span class="no-files is-draggable">or drag them here</span>
+                  <div
+                    class="files file-previews"
+                    data-content='<span>{name}</span> <span>({size})</span> <span class="fa fa-trash remove" aria-hidden="true"></span>'
+                    data-content-before='<i class="fa fa-file-o" aria-hidden="true"></i>'
+                    data-content-before-audio='<i class="fa fa-file-audio-o" aria-hidden="true"></i>'
+                    data-content-before-image='<img src="{url}">'
+                    data-content-before-text='<i class="fa fa-file-text-o" aria-hidden="true"></i>'
+                    data-content-before-video='<i class="fa fa-file-video-o" aria-hidden="true"></i>'></div>
+                    <span class="error-msg"></span>
+                </label>
+                <span class="info">Files: <span class="file-count"></span> (<span class="size"></span>) Max total size: 500 MB</span>
+              </div>
+
+              <button type="submit" class="btn btn-light">Submit</button>
+              <button type="reset" class="btn btn-light">Reset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md">
+          <div class="block" id="example-4">
+            <h3>Restricted file count and types</h3>
+            <form action="#">
+
+              <div class="filebokz"
+                data-allowed-extensions="jpeg,jpg,gif,png"
+                data-max-files="3">
+                <input type="file" id="file-4" name="file" multiple />
+                <label for="file-4">
+                  <strong class="no-files">Choose file(s)</strong>
+                  <span class="no-files is-draggable">or drag them here</span>
+                  <span class="files"></span>
+                  <span class="error-msg"></span>
+                </label>
+
+                <div class="row info">
+                  <div class="col-md">* Only jpeg, jpg, gif, png allowed</div>
+                  <div class="col-3" style="text-align: right;">
+                    <span class="file-count">0</span><span> / 3</span>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-light">Submit</button>
+              <button type="reset" class="btn btn-light">Reset</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md">
+          <div class="block" id="example-5">
+            <h3>No JavaScript</h3>
+            <form action="#">
+
+              <div class="filebokz no-js">
+                <input type="file" id="file-5" name="file" required />
+                <label for="file-5">
+                  <strong class="has-files no-js">Thank You!</strong>
+                  <strong class="no-files">Choose a file</strong>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-light">Submit</button>
+              <button type="reset" class="btn btn-light">Reset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md">
+          <div class="block" id="example-6">
+            <h3>Custom Stying</h3>
+            <form action="#">
+
+              <div class="filebokz" data-allowed-extensions="jpeg,jpg,png" data-allowed-extensions-error-msg="Only images are allowed.">
+                <input type="file" id="file-6" name="file" />
+                <label for="file-6">
+                  <i class="fa fa-user-o no-files" aria-hidden="true"></i>
+                  <div
+                    class="files"
+                    data-content='<img src="{url}">'
+                    data-draggable="false"></div>
+                </label>
+                <div class="error-msg"></div>
+              </div>
+
+              <button type="submit" class="btn btn-light">Submit</button>
+              <button type="reset" class="btn btn-light">Reset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">&copy; 2021 <a href="https://kodieg.com" target="_blank">Kodie Grantham</a></span>
+      </div>
+    </footer>
+  </body>
+</html>
