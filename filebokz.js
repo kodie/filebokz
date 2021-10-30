@@ -371,6 +371,7 @@ var filebokz = function (elements, applyClass) {
 
   var onWindowDrop = function (e) {
     e.preventDefault()
+    e.stopImmediatePropagation()
 
     var fileBoxId = e.dataTransfer.getData('fileBoxId')
 
