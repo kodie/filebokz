@@ -30,14 +30,15 @@
   "homepage": "https://kodie.github.io/filebokz",
   "main": "filebokz.js",
   "license": "MIT",
-  "devDependencies": {
-    "clean-css-cli": "^5.3.3",
-    "uglify-js": "^3.10.4"
-  },
   "scripts": {
     "build": "npm run build-css && npm run build-js",
     "build-css": "cleancss --batch ./*.css --batch-suffix '.min' --output dist --debug --source-map",
     "build-js": "uglifyjs filebokz.js --comments /^!/ --compress --mangle --output dist/filebokz.min.js --source-map \"url='filebokz.min.js.map'\" --verbose",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard --env browser"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.3.3",
+    "standard": "^11.0.1",
+    "uglify-js": "^3.10.4"
   }
 }

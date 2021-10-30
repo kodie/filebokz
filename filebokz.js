@@ -154,8 +154,8 @@ var filebokz = function (elements, applyClass) {
     if (fileCountElement) fileCountElement.innerHTML = files.length
 
     var size = 0
-    for (var i = 0; i < files.length; i++) {
-      size += files[i].size
+    for (var s = 0; s < files.length; s++) {
+      size += files[s].size
     }
 
     fileBox.dataset.size = size
@@ -169,20 +169,20 @@ var filebokz = function (elements, applyClass) {
 
       var fileElements = filesElement.querySelectorAll('.file')
       if (fileElements) {
-        for (var i = 0; i < fileElements.length; i++) {
-          filesElement.removeChild(fileElements[i]);
+        for (var fe = 0; fe < fileElements.length; fe++) {
+          filesElement.removeChild(fileElements[fe])
         }
       }
 
       if (files.length) {
         var draggableFiles = !filesElementData.draggable || filesElementData.draggable.toLowerCase() !== 'false'
 
-        for (var i = 0; i < files.length; i++) {
+        for (var f = 0; f < files.length; f++) {
           (function (file, index) {
             var typePrefix = file.type.split('/')[0]
             var typeKey = file.type
-              .replace(/[\/\+\-](\w{1})/g, function (c) { return c.toUpperCase() })
-              .replace(/[\/\+\-]/g, '')
+              .replace(/[/+-](\w{1})/g, function (c) { return c.toUpperCase() })
+              .replace(/[/+-]/g, '')
 
             typePrefix = typePrefix.charAt(0).toUpperCase() + typePrefix.slice(1)
 
@@ -196,7 +196,7 @@ var filebokz = function (elements, applyClass) {
             contentBefore = contentBefore || filesElementData.contentBefore || ''
 
             var contentAfter = fileAttribute(filesElementData, 'contentAfter', typePrefix, typeKey)
-            contentAfter = contentAfter|| filesElementData.contentAfter || ''
+            contentAfter = contentAfter || filesElementData.contentAfter || ''
 
             var url = fileAttribute(filesElementData, 'url', typePrefix, typeKey)
 
@@ -231,7 +231,7 @@ var filebokz = function (elements, applyClass) {
             }
 
             filesElement.append(fileElement)
-          })(files[i], i)
+          })(files[f], f)
         }
       }
     }
@@ -482,10 +482,12 @@ filebokz.addFiles = function (input, files) {
 }
 
 filebokz.newFileList = function (files) {
+  var dt
+
   try {
-    var dt = new DataTransfer()
+    dt = new DataTransfer()
   } catch (e) {
-    var dt = new ClipboardEvent('')
+    dt = new ClipboardEvent('')
   }
 
   for (var i = 0; i < files.length; i++) {

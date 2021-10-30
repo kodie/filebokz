@@ -1,4 +1,11 @@
 # filebokz
+
+[![npm package version](https://img.shields.io/npm/v/filebokz.svg?style=flat-square)](https://www.npmjs.com/package/filebokz)
+[![Travis build status](https://img.shields.io/travis/com/kodie/filebokz.svg?style=flat-square)](https://travis-ci.com/kodie/filebokz)
+[![npm package downloads](https://img.shields.io/npm/dt/filebokz.svg?style=flat-square)](https://www.npmjs.com/package/filebokz)
+[![code style](https://img.shields.io/badge/code_style-standard-yellow.svg?style=flat-square)](https://github.com/standard/standard)
+[![license](https://img.shields.io/github/license/kodie/filebokz.svg?style=flat-square)](license.md)
+
 A tiny, dependency-free, highly customizable and configurable, easy to use file input with some pretty sweet features.
 
 
