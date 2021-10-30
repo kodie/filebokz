@@ -1,5 +1,5 @@
 /*!
-  filebokz v0.0.1 (https://github.com/kodie/filebokz)
+  filebokz v0.0.2 (https://github.com/kodie/filebokz)
   by Kodie Grantham (https://kodieg.com)
 */
 
