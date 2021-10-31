@@ -42,27 +42,60 @@ Basically any browser version made after 2016 should work.
 Visit https://kodie.github.io/filebokz
 
 
-## Usage
+## Installation
 
-Add the CSS:
 
-```html
-<link rel="stylesheet" href="dist/filebokz.min.css" />
-```
+### Manual Download
 
-and optionally the theme CSS:
-
-```html
-<link rel="stylesheet" href="dist/filebokz-theme.min.css" />
-```
-
-and the JS:
+[Download the latest version of filebokz](https://github.com/kodie/minitaur/archive/refs/heads/main.zip) and then place the following HTML in your page's head element:
 
 ```html
 <script type="text/javascript" src="dist/filebokz.min.js"></script>
+<link rel="stylesheet" href="dist/filebokz.min.css" />
+
+<!--Optional theme-->
+<link rel="stylesheet" href="dist/filebokz-theme.min.css" />
 ```
 
-and your HTML:
+
+### CDN (Courtesy of [jsDelivr](https://jsdelivr.com))
+
+Place the following HTML in your page's head element (check to make sure the version in the URLs are the version you want):
+
+```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kodie/filebokz@0.0.2/dist/filebokz.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kodie/filebokz@0.0.2/dist/filebokz.min.css" />
+
+<!--Optional theme-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kodie/filebokz@0.0.2/dist/filebokz-theme.min.css" />
+```
+
+
+### [NPM](https://npmjs.com)
+
+```
+npm install filebokz --save
+```
+
+
+### [GPM](https://github.com/itsahappymedium/gpm)
+
+```
+gpm install kodie/filebokz --save
+```
+
+
+### [Bower](https://bower.io)
+
+```
+bower install kodie/filebokz --save
+```
+
+
+## Usage
+
+
+### Basic HTML Structure
 
 ```html
 <div class="filebokz">
@@ -75,8 +108,6 @@ and your HTML:
   </label>
 </div>
 ```
-
-And then just use the function below:
 
 
 ### The `filebokz([elements], [applyClass])` Function
