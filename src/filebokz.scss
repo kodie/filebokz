@@ -1,0 +1,54 @@
+/*!
+  filebokz v0.1.0 (https://github.com/kodie/filebokz)
+  by Kodie Grantham (https://kodieg.com)
+*/
+
+.filebokz {
+  &:not(.is-advanced) .is-advanced,
+  &.advanced .not-advanced,
+  &:not(.is-draggable) .is-draggable,
+  &.draggable .not-draggable,
+  &.in-focus .not-in-focus,
+  &:not(.in-focus) .in-focus,
+  &:not(.is-removing) .is-removing,
+  &.is-removing .not-removing,
+  &:not(.is-transferring) .is-transferring,
+  &.is-transferring .not-transferring,
+  &:not(.has-files) .files:empty,
+  &:not(.has-files) .has-files,
+  &.has-files .no-files,
+  &:not(.error) .error,
+  &.error .no-error,
+  &.js-enabled .not-js-enabled,
+  &:not(.js-enabled) .js-enabled,
+  &:not(.js-enabled) input:required:valid ~ .no-files,
+  &:not(.js-enabled) input:required:valid ~ * .no-files,
+  &:not(.js-enabled) input:required:invalid ~ .has-files,
+  &:not(.js-enabled) input:required:invalid ~ * .has-files {
+    display: none;
+    visibility: hidden;
+  }
+
+  &:not(.js-enabled) input:required:valid ~ .has-files,
+  &:not(.js-enabled) input:required:valid ~ * .has-files {
+    display: initial;
+    visibility: initial;
+  }
+
+  &.is-dragging .file * {
+    pointer-events: none;
+  }
+
+  .file {
+    display: inline-block;
+  }
+
+  input {
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0.1px;
+    z-index: -1;
+  }
+}

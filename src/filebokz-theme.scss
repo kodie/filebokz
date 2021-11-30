@@ -1,0 +1,263 @@
+/*!
+  filebokz v0.1.0 (https://github.com/kodie/filebokz)
+  by Kodie Grantham (https://kodieg.com)
+*/
+
+$filebokz-bg-color: #eee !default;
+$filebokz-color: #5185b3 !default;
+$filebokz-drag-bg-color: #fff !default;
+$filebokz-error-color: #721c24 !default;
+$filebokz-error-bg-color: #f8d7da !default;
+$filebokz-hover-bg-color: #eee !default;
+$filebokz-file-bg-color: #dadada !default;
+$filebokz-focus-bg-color: #fff !default;
+
+.filebokz {
+  --bg-color: #{$filebokz-bg-color};
+  --color: #{$filebokz-color};
+  --drag-bg-color: #{$filebokz-drag-bg-color};
+  --error-color: #{$filebokz-error-color};
+  --error-bg-color: #{$filebokz-error-bg-color};
+  --hover-bg-color: var(--bg-color);
+  --file-bg-color: #{$filebokz-file-bg-color};
+  --focus-bg-color: var(--drag-bg-color);
+
+  background-color: $filebokz-bg-color;
+  background-color: var(--bg-color);
+  color: #5185b3;
+  color: var(--color);
+  margin: 1rem 0;
+  padding: .5rem;
+  position: relative;
+  transition: background-color .5s ease;
+
+  &:hover {
+    background-color: $filebokz-hover-bg-color;
+    background-color: var(--hover-bg-color);
+  }
+
+  &.in-focus {
+    background-color: $filebokz-focus-bg-color;
+    background-color: var(--focus-bg-color);
+  }
+
+  &.is-dragging {
+    background-color: $filebokz-drag-bg-color;
+    background-color: var(--drag-bg-color);
+  }
+
+  .error-msg:empty {
+    display: none;
+  }
+
+  &.error .error-msg {
+    animation: filebokz-fadeIn .25s 1 ease-in;
+    color: $filebokz-error-color;
+    color: var(--error-color);
+    opacity: .85;
+    visibility: visible;
+  }
+
+  &:not(.error) .error-msg {
+    animation: filebokz-fadeOut .25s 1 ease-in;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  label {
+    align-content: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    justify-content: center;
+    margin: 0;
+    min-height: 100px;
+    overflow: hidden;
+    padding: 1rem;
+    position: relative;
+    text-align: center;
+    width: 100%;
+
+    * {
+      display: inline-block;
+      overflow: hidden;
+      pointer-events: none;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      z-index: 2;
+    }
+
+    .error-msg {
+      background-color: $filebokz-error-bg-color;
+      background-color: var(--error-bg-color);
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      vertical-align: middle;
+    }
+
+    .error-msg::before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .files {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &.is-draggable {
+    label:hover::after,
+    &.is-dragging label::after,
+    &.in-focus label::after {
+      animation: filebokz-dance 10s infinite linear;
+    }
+
+    label::after {
+      background:
+        linear-gradient(90deg, $filebokz-color 50%, transparent 50%),
+        linear-gradient(0deg, $filebokz-color 50%, transparent 50%),
+        linear-gradient(90deg, $filebokz-color 50%, transparent 50%),
+        linear-gradient(0deg, $filebokz-color 50%, transparent 50%);
+      background:
+        linear-gradient(90deg, var(--color) 50%, transparent 50%),
+        linear-gradient(0deg, var(--color) 50%, transparent 50%),
+        linear-gradient(90deg, var(--color) 50%, transparent 50%),
+        linear-gradient(0deg, var(--color) 50%, transparent 50%);
+      background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+      background-size: 15px 3px, 3px 15px, 15px 3px, 3px 15px;
+      background-position: left top, right top, left bottom, left top;
+      bottom: 0;
+      content: '';
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1;
+    }
+  }
+
+  .files {
+    .file {
+      &[draggable] {
+        cursor: grab;
+        pointer-events: auto;
+      }
+
+      &.is-dragging[draggable] {
+        cursor: grabbing;
+      }
+
+      &[draggable].is-removing,
+      &[draggable].is-transferring {
+        background-color: $filebokz-error-bg-color;
+        background-color: var(--error-bg-color);
+      }
+
+      .remove {
+        cursor: pointer;
+        pointer-events: auto;
+      }
+
+      .remove:hover {
+        color: $filebokz-error-color;
+        color: var(--error-color);
+      }
+    }
+
+    &.file-previews {
+      align-items: left;
+      display: flex;
+      flex-wrap: wrap;
+
+      .file {
+        align-items: center;
+        background-color: $filebokz-file-bg-color;
+        background-color: var(--file-bg-color);
+        border-color: $filebokz-color;
+        border-color: var(--color);
+        border-style: dotted;
+        border-width: 1px;
+        flex-basis: 30%;
+        justify-content: center;
+        margin: 1rem;
+        padding: 1rem;
+        position: relative;
+        overflow: hidden;
+        transition: background-color .5s ease;
+        text-align: center;
+
+        &:nth-child(-n+2) {
+          flex-grow: 1;
+        }
+
+        * {
+          display: block;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        img, i.fa {
+          font-size: 80px;
+          margin: 0 auto;
+          margin-bottom: .5rem;
+          max-height: 80px;
+        }
+
+        .remove {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+      }
+    }
+
+    &:not(.file-previews) .file:not(:last-child)::after {
+      content: ', ';
+      display: 'inline';
+      white-space: pre;
+    }
+  }
+}
+
+@keyframes filebokz-dance {
+  0% {
+    background-position: left top, right top, right bottom, left bottom;
+  }
+
+  100% {
+    background-position: right top, right bottom, left bottom, left top;
+  }
+}
+
+@keyframes filebokz-fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  100% {
+    opacity: .85;
+    visibility: visible;
+	}
+}
+
+@keyframes filebokz-fadeOut {
+  0% {
+    opacity: .85;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+	}
+}

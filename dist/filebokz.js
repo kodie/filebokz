@@ -24,7 +24,7 @@
       elements = [elements];
     }
 
-    var displayErrorMessage = function displayErrorMessage(fileBox, errorType, letiable) {
+    var displayErrorMessage = function displayErrorMessage(fileBox, errorType, variable) {
       var element = fileBox.querySelector('.error-msg');
       var errorDisplayDuration = fileBox.dataset.errorDisplayDuration || 3000;
       fileBox.classList.add('error');
@@ -32,24 +32,24 @@
       var message = '';
 
       if (errorType === 'maxFiles') {
-        message = fileBoxData.maxFilesErrorMsg || 'A maximum of {letiable} file{s} can be uploaded.';
-        message = message.replace(/{letiable}/ig, letiable);
-        message = message.replace(/{s}/ig, letiable > 1 ? 's' : '');
+        message = fileBoxData.maxFilesErrorMsg || 'A maximum of {variable} file{s} can be uploaded.';
+        message = message.replace(/{variable}/ig, variable);
+        message = message.replace(/{s}/ig, variable > 1 ? 's' : '');
       }
 
       if (errorType === 'maxFileSize') {
-        message = fileBoxData.maxFileSizeErrorMsg || 'File size cannot exceed {letiable}.';
-        message = message.replace(/{letiable}/ig, fileSize(letiable));
+        message = fileBoxData.maxFileSizeErrorMsg || 'File size cannot exceed {variable}.';
+        message = message.replace(/{variable}/ig, fileSize(variable));
       }
 
       if (errorType === 'maxSize') {
-        message = fileBoxData.maxSizeErrorMsg || 'Total combined file size cannot exceed {letiable}.';
-        message = message.replace(/{letiable}/ig, fileSize(letiable));
+        message = fileBoxData.maxSizeErrorMsg || 'Total combined file size cannot exceed {variable}.';
+        message = message.replace(/{variable}/ig, fileSize(variable));
       }
 
       if (errorType === 'allowedExtensions') {
-        message = fileBoxData.allowedExtensionsErrorMsg || 'Only the following file types are allowed: {letiable}.';
-        message = message.replace(/{letiable}/ig, letiable);
+        message = fileBoxData.allowedExtensionsErrorMsg || 'Only the following file types are allowed: {variable}.';
+        message = message.replace(/{variable}/ig, variable);
       }
 
       if (element) {

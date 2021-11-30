@@ -1,7 +1,7 @@
 import { babel } from '@rollup/plugin-babel'
 
 const config = {
-  input: 'filebokz.js',
+  input: 'src/filebokz.js',
   output: {
     dir: 'dist',
     format: 'umd',
