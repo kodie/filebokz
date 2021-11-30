@@ -1,17 +1,17 @@
 /*!
-  filebokz v0.0.2 (https://github.com/kodie/filebokz)
+  filebokz v0.1.0 (https://github.com/kodie/filebokz)
   by Kodie Grantham (https://kodieg.com)
 */
 
-var filebokz = function (elements, applyClass) {
+const filebokz = (elements, applyClass) => {
   if (!elements) elements = '.filebokz'
   if (typeof applyClass !== 'string') applyClass = 'filebokz'
 
-  var imageTypes = ['apng', 'bmp', 'gif', 'x-icon', 'jpeg', 'png', 'svg+xml', 'tiff', 'webp']
-  var sizeUnits = ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-  var div = document.createElement('div')
-  var draggable = ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)
-  var advanced = ('FormData' in window && 'FileReader' in window)
+  const imageTypes = ['apng', 'bmp', 'gif', 'x-icon', 'jpeg', 'png', 'svg+xml', 'tiff', 'webp']
+  const sizeUnits = ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  const div = document.createElement('div')
+  const draggable = ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)
+  const advanced = ('FormData' in window && 'FileReader' in window)
 
   if (!filebokz.count) filebokz.count = 0
 
@@ -21,41 +21,41 @@ var filebokz = function (elements, applyClass) {
     elements = [elements]
   }
 
-  var displayErrorMessage = function (fileBox, errorType, variable) {
-    var element = fileBox.querySelector('.error-msg')
-    var errorDisplayDuration = fileBox.dataset.errorDisplayDuration || 3000
+  const displayErrorMessage = (fileBox, errorType, letiable) => {
+    const element = fileBox.querySelector('.error-msg')
+    const errorDisplayDuration = fileBox.dataset.errorDisplayDuration || 3000
 
     fileBox.classList.add('error')
 
-    var fileBoxData = fileBox.dataset
-    var message = ''
+    const fileBoxData = fileBox.dataset
+    let message = ''
 
     if (errorType === 'maxFiles') {
-      message = fileBoxData.maxFilesErrorMsg || 'A maximum of {variable} file{s} can be uploaded.'
-      message = message.replace(/{variable}/ig, variable)
-      message = message.replace(/{s}/ig, (variable > 1) ? 's' : '')
+      message = fileBoxData.maxFilesErrorMsg || 'A maximum of {letiable} file{s} can be uploaded.'
+      message = message.replace(/{letiable}/ig, letiable)
+      message = message.replace(/{s}/ig, (letiable > 1) ? 's' : '')
     }
 
     if (errorType === 'maxFileSize') {
-      message = fileBoxData.maxFileSizeErrorMsg || 'File size cannot exceed {variable}.'
-      message = message.replace(/{variable}/ig, fileSize(variable))
+      message = fileBoxData.maxFileSizeErrorMsg || 'File size cannot exceed {letiable}.'
+      message = message.replace(/{letiable}/ig, fileSize(letiable))
     }
 
     if (errorType === 'maxSize') {
-      message = fileBoxData.maxSizeErrorMsg || 'Total combined file size cannot exceed {variable}.'
-      message = message.replace(/{variable}/ig, fileSize(variable))
+      message = fileBoxData.maxSizeErrorMsg || 'Total combined file size cannot exceed {letiable}.'
+      message = message.replace(/{letiable}/ig, fileSize(letiable))
     }
 
     if (errorType === 'allowedExtensions') {
-      message = fileBoxData.allowedExtensionsErrorMsg || 'Only the following file types are allowed: {variable}.'
-      message = message.replace(/{variable}/ig, variable)
+      message = fileBoxData.allowedExtensionsErrorMsg || 'Only the following file types are allowed: {letiable}.'
+      message = message.replace(/{letiable}/ig, letiable)
     }
 
     if (element) {
       element.innerHTML = message
 
-      var errorAnimationDuration = 250
-      if (fileBox.dataset.hasOwnProperty('errorAnimationDuration')) {
+      let errorAnimationDuration = 250
+      if (Object.prototype.hasOwnProperty.call(fileBox.dataset, 'errorAnimationDuration')) {
         errorAnimationDuration = fileBox.dataset.errorAnimationDuration
       }
 
@@ -74,18 +74,18 @@ var filebokz = function (elements, applyClass) {
     })
   }
 
-  var fileAttribute = function (attributes, attrPrefix, typePrefix, typeKey) {
-    if (attributes.hasOwnProperty(attrPrefix + typeKey)) {
+  const fileAttribute = (attributes, attrPrefix, typePrefix, typeKey) => {
+    if (Object.prototype.hasOwnProperty.call(attributes, attrPrefix + typeKey)) {
       return attributes[attrPrefix + typeKey]
-    } else if (attributes.hasOwnProperty(attrPrefix + typePrefix)) {
+    } else if (Object.prototype.hasOwnProperty.call(attributes, attrPrefix + typePrefix)) {
       return attributes[attrPrefix + typePrefix]
     }
   }
 
-  var fileSize = function (bytes) {
+  const fileSize = (bytes) => {
     if (Math.abs(bytes) < 1024) return bytes + ' B'
 
-    var u = -1
+    let u = -1
 
     do {
       bytes /= 1024
@@ -95,27 +95,27 @@ var filebokz = function (elements, applyClass) {
     return +bytes.toFixed(1) + ' ' + sizeUnits[u]
   }
 
-  var onBlur = function (e, fileBox) {
+  const onBlur = (e, fileBox) => {
     fileBox.classList.remove('in-focus')
   }
 
-  var onChange = function (e, fileBox, input) {
-    var files = input.files
-    var originalFiles = input.originalFiles || []
-    var removing = e.filebokzAction === 'remove'
+  const onChange = (e, fileBox, input) => {
+    let files = input.files
+    const originalFiles = input.originalFiles || []
+    const removing = e.filebokzAction === 'remove'
 
     if (files.length) {
-      var appendable = !fileBox.dataset.appendable || fileBox.dataset.appendable.toLowerCase() !== 'false'
-      var multiple = input.hasAttribute('multiple') && input.getAttribute('multiple').toLowerCase() !== 'false'
+      const appendable = !fileBox.dataset.appendable || fileBox.dataset.appendable.toLowerCase() !== 'false'
+      const multiple = input.hasAttribute('multiple') && input.getAttribute('multiple').toLowerCase() !== 'false'
 
       if (appendable && multiple && !removing && originalFiles.length) {
-        var filesArr = Array.from(files)
-        var newFilesArr = Array.from(originalFiles)
+        const filesArr = Array.from(files)
+        const newFilesArr = Array.from(originalFiles)
 
-        for (var i = 0; i < filesArr.length; i++) {
-          var duplicateFound = false
+        for (let i = 0; i < filesArr.length; i++) {
+          let duplicateFound = false
 
-          for (var k = 0; k < newFilesArr.length; k++) {
+          for (let k = 0; k < newFilesArr.length; k++) {
             if (
               filesArr[i].lastModifed === newFilesArr[k].lastModifed &&
               filesArr[i].name === newFilesArr[k].name &&
@@ -150,55 +150,55 @@ var filebokz = function (elements, applyClass) {
     input.originalFiles = files
     fileBox.dataset.fileCount = files.length
 
-    var fileCountElement = fileBox.querySelector('.file-count')
+    const fileCountElement = fileBox.querySelector('.file-count')
     if (fileCountElement) fileCountElement.innerHTML = files.length
 
-    var size = 0
-    for (var s = 0; s < files.length; s++) {
+    let size = 0
+    for (let s = 0; s < files.length; s++) {
       size += files[s].size
     }
 
     fileBox.dataset.size = size
 
-    var sizeElement = fileBox.querySelector('.size')
+    const sizeElement = fileBox.querySelector('.size')
     if (sizeElement) sizeElement.innerHTML = fileSize(size)
 
-    var filesElement = fileBox.querySelector('.files')
+    const filesElement = fileBox.querySelector('.files')
     if (filesElement) {
-      var filesElementData = filesElement.dataset
+      const filesElementData = filesElement.dataset
 
-      var fileElements = filesElement.querySelectorAll('.file')
+      const fileElements = filesElement.querySelectorAll('.file')
       if (fileElements) {
-        for (var fe = 0; fe < fileElements.length; fe++) {
+        for (let fe = 0; fe < fileElements.length; fe++) {
           filesElement.removeChild(fileElements[fe])
         }
       }
 
       if (files.length) {
-        var draggableFiles = !filesElementData.draggable || filesElementData.draggable.toLowerCase() !== 'false'
+        const draggableFiles = !filesElementData.draggable || filesElementData.draggable.toLowerCase() !== 'false'
 
-        for (var f = 0; f < files.length; f++) {
+        for (let f = 0; f < files.length; f++) {
           (function (file, index) {
-            var typePrefix = file.type.split('/')[0]
-            var typeKey = file.type
+            let typePrefix = file.type.split('/')[0]
+            const typeKey = file.type
               .replace(/[/+-](\w{1})/g, function (c) { return c.toUpperCase() })
               .replace(/[/+-]/g, '')
 
             typePrefix = typePrefix.charAt(0).toUpperCase() + typePrefix.slice(1)
 
-            var element = fileAttribute(filesElementData, 'element', typePrefix, typeKey)
+            let element = fileAttribute(filesElementData, 'element', typePrefix, typeKey)
             element = element || filesElementData.element || 'span'
 
-            var content = fileAttribute(filesElementData, 'content', typePrefix, typeKey)
+            let content = fileAttribute(filesElementData, 'content', typePrefix, typeKey)
             content = content || filesElementData.content || '{name}'
 
-            var contentBefore = fileAttribute(filesElementData, 'contentBefore', typePrefix, typeKey)
+            let contentBefore = fileAttribute(filesElementData, 'contentBefore', typePrefix, typeKey)
             contentBefore = contentBefore || filesElementData.contentBefore || ''
 
-            var contentAfter = fileAttribute(filesElementData, 'contentAfter', typePrefix, typeKey)
+            let contentAfter = fileAttribute(filesElementData, 'contentAfter', typePrefix, typeKey)
             contentAfter = contentAfter || filesElementData.contentAfter || ''
 
-            var url = fileAttribute(filesElementData, 'url', typePrefix, typeKey)
+            let url = fileAttribute(filesElementData, 'url', typePrefix, typeKey)
 
             if (!url) {
               if (imageTypes.includes(file.type.replace('image/', ''))) {
@@ -214,7 +214,7 @@ var filebokz = function (elements, applyClass) {
             content = content.replace(/{size}/ig, fileSize(file.size))
             content = content.replace(/{url}/ig, url)
 
-            var fileElement = document.createElement(element)
+            const fileElement = document.createElement(element)
 
             fileElement.className = 'file'
             fileElement.innerHTML = content
@@ -225,7 +225,7 @@ var filebokz = function (elements, applyClass) {
               fileElement.addEventListener('dragstart', function (e) { onFileDragStart(e, fileBox.id) }, false)
             }
 
-            var removeElement = fileElement.querySelector('.remove')
+            const removeElement = fileElement.querySelector('.remove')
             if (removeElement) {
               removeElement.addEventListener('click', function (e) { onFileRemoveClick(e, input, index) }, false)
             }
@@ -243,32 +243,32 @@ var filebokz = function (elements, applyClass) {
     }
   }
 
-  var onDragEnter = function (e, fileBox, input) {
+  const onDragEnter = (e, fileBox, input) => {
     e.preventDefault()
     e.stopPropagation()
     fileBox.classList.add('is-dragging')
   }
 
-  var onDragLeave = function (e, fileBox) {
+  const onDragLeave = (e, fileBox) => {
     e.preventDefault()
     e.stopPropagation()
     fileBox.classList.remove('is-dragging')
   }
 
-  var onDrop = function (e, fileBox, input) {
+  const onDrop = (e, fileBox, input) => {
     e.preventDefault()
     e.stopPropagation()
 
     fileBox.classList.remove('is-dragging')
 
-    var files = e.dataTransfer.files
-    var oldFileBoxId = e.dataTransfer.getData('fileBoxId')
+    let files = e.dataTransfer.files
+    const oldFileBoxId = e.dataTransfer.getData('fileBoxId')
 
     if (oldFileBoxId) {
-      var oldFileIndex = e.dataTransfer.getData('fileIndex')
-      var oldFileBox = document.getElementById(oldFileBoxId)
-      var oldInput = oldFileBox.querySelector('input')
-      var oldFileElement = oldFileBox.querySelector('.files').children[oldFileIndex]
+      const oldFileIndex = e.dataTransfer.getData('fileIndex')
+      const oldFileBox = document.getElementById(oldFileBoxId)
+      const oldInput = oldFileBox.querySelector('input')
+      const oldFileElement = oldFileBox.querySelector('.files').children[oldFileIndex]
 
       oldFileBox.classList.remove('is-dragging')
       oldFileBox.classList.remove('is-removing')
@@ -279,10 +279,10 @@ var filebokz = function (elements, applyClass) {
 
       if (oldFileBoxId === fileBox.id) return
 
-      var oldFilesArr = Array.from(oldInput.files)
-      var file = oldFilesArr[oldFileIndex]
-      var filesArr = Array.from(input.files)
-      var multiple = input.hasAttribute('multiple') && input.getAttribute('multiple').toLowerCase() !== 'false'
+      const oldFilesArr = Array.from(oldInput.files)
+      const file = oldFilesArr[oldFileIndex]
+      let filesArr = Array.from(input.files)
+      const multiple = input.hasAttribute('multiple') && input.getAttribute('multiple').toLowerCase() !== 'false'
 
       if (multiple) {
         filesArr.push(file)
@@ -306,15 +306,15 @@ var filebokz = function (elements, applyClass) {
     }
   }
 
-  var onFileDrag = function (e, fileBoxId) {
+  const onFileDrag = (e, fileBoxId) => {
     e.preventDefault()
     e.stopPropagation()
 
-    var overElement = document.elementFromPoint(e.pageX, e.pageY)
+    const overElement = document.elementFromPoint(e.pageX, e.pageY)
 
     if (overElement) {
-      var fileBox = document.getElementById(fileBoxId)
-      var newFileBox = overElement.closest('[filebokz-id]')
+      const fileBox = document.getElementById(fileBoxId)
+      const newFileBox = overElement.closest('[filebokz-id]')
 
       if (newFileBox && newFileBox.classList.contains('js-enabled')) {
         if (newFileBox.id !== fileBoxId) {
@@ -333,27 +333,27 @@ var filebokz = function (elements, applyClass) {
     }
   }
 
-  var onFileDragStart = function (e, fileBoxId, index) {
+  const onFileDragStart = (e, fileBoxId, index) => {
     e.target.classList.add('is-dragging')
 
-    var fileIndex = Array.from(e.target.parentNode.children).indexOf(e.target)
+    const fileIndex = Array.from(e.target.parentNode.children).indexOf(e.target)
 
     e.dataTransfer.setData('fileBoxId', fileBoxId)
     e.dataTransfer.setData('fileIndex', fileIndex)
   }
 
-  var onFileRemoveClick = function (e, input, index) {
+  const onFileRemoveClick = (e, input, index) => {
     e.preventDefault()
     e.stopPropagation()
     filebokz.removeFiles(input, index)
   }
 
-  var onFocus = function (e, fileBox) {
+  const onFocus = (e, fileBox) => {
     fileBox.classList.add('in-focus')
   }
 
-  var onReset = function (e, fileBox, input) {
-    var error = fileBox.querySelector('.error')
+  const onReset = (e, fileBox, input) => {
+    const error = fileBox.querySelector('.error')
     if (error) error.innerHTML = ''
 
     fileBox.classList.remove('error')
@@ -361,45 +361,45 @@ var filebokz = function (elements, applyClass) {
     filebokz.triggerEvent('change', input)
   }
 
-  var onSubmit = function (e, fileBox) {
+  const onSubmit = (e, fileBox) => {
     fileBox.classList.add('is-uploading')
   }
 
-  var onWindowDragOver = function (e) {
+  const onWindowDragOver = (e) => {
     e.preventDefault()
   }
 
-  var onWindowDrop = function (e) {
+  const onWindowDrop = (e) => {
     e.preventDefault()
     e.stopImmediatePropagation()
 
-    var fileBoxId = e.dataTransfer.getData('fileBoxId')
+    const fileBoxId = e.dataTransfer.getData('fileBoxId')
 
     if (fileBoxId) {
-      var fileBox = document.getElementById(fileBoxId)
-      var input = fileBox.querySelector('input')
-      var index = e.dataTransfer.getData('fileIndex')
+      const fileBox = document.getElementById(fileBoxId)
+      const input = fileBox.querySelector('input')
+      const index = e.dataTransfer.getData('fileIndex')
 
       filebokz.removeFiles(input, index)
     }
   }
 
-  var validateFiles = function (fileList, fileBox, input) {
-    var fileBoxData = fileBox.dataset
-    var multiple = input.hasAttribute('multiple') && input.getAttribute('multiple').toLowerCase() !== 'false'
-    var maxFiles = !multiple ? 1 : fileBoxData.hasOwnProperty('maxFiles') ? fileBoxData.maxFiles : null
-    var maxFileSize = fileBoxData.maxFileSize
-    var maxSize = fileBoxData.maxSize
-    var allowedExtensions = fileBoxData.allowedExtensions ? fileBoxData.allowedExtensions.split(',') : null
-    var size = 0
+  const validateFiles = (fileList, fileBox, input) => {
+    const fileBoxData = fileBox.dataset
+    const multiple = input.hasAttribute('multiple') && input.getAttribute('multiple').toLowerCase() !== 'false'
+    const maxFiles = !multiple ? 1 : Object.prototype.hasOwnProperty.call(fileBoxData, 'maxFiles') ? fileBoxData.maxFiles : null
+    const maxFileSize = fileBoxData.maxFileSize
+    const maxSize = fileBoxData.maxSize
+    const allowedExtensions = fileBoxData.allowedExtensions ? fileBoxData.allowedExtensions.split(',') : null
+    let size = 0
 
     if (maxFiles && fileList.length > maxFiles) {
       displayErrorMessage(fileBox, 'maxFiles', maxFiles)
       return false
     }
 
-    for (var i = 0; i < fileList.length; i++) {
-      var ext = fileList[i].name.split('.')
+    for (let i = 0; i < fileList.length; i++) {
+      let ext = fileList[i].name.split('.')
 
       if (ext) {
         ext = ext.pop().toLowerCase()
@@ -428,12 +428,12 @@ var filebokz = function (elements, applyClass) {
     return true
   }
 
-  for (var i = 0; i < elements.length; i++) {
+  for (let i = 0; i < elements.length; i++) {
     (function (fileBox) {
-      var form = fileBox.closest('form')
-      var input = fileBox.querySelector('input[type="file"]')
+      const form = fileBox.closest('form')
+      const input = fileBox.querySelector('input[type="file"]')
 
-      if (!input || fileBox.classList.contains('no-js') || fileBox.dataset.hasOwnProperty('filebokzId')) return
+      if (!input || fileBox.classList.contains('no-js') || Object.prototype.hasOwnProperty.call(fileBox.dataset, 'filebokzId')) return
 
       filebokz.count++
 
@@ -473,8 +473,8 @@ var filebokz = function (elements, applyClass) {
   return elements
 }
 
-filebokz.addFiles = function (input, files) {
-  var filesArr = Array.from(input.files)
+filebokz.addFiles = (input, files) => {
+  const filesArr = Array.from(input.files)
 
   filesArr.concat(Array.from(files))
   input.files = filebokz.newFileList(filesArr)
@@ -482,8 +482,8 @@ filebokz.addFiles = function (input, files) {
   filebokz.triggerEvent('change', input)
 }
 
-filebokz.newFileList = function (files) {
-  var dt
+filebokz.newFileList = (files) => {
+  let dt
 
   try {
     dt = new DataTransfer()
@@ -491,15 +491,15 @@ filebokz.newFileList = function (files) {
     dt = new ClipboardEvent('')
   }
 
-  for (var i = 0; i < files.length; i++) {
+  for (let i = 0; i < files.length; i++) {
     dt.items.add(files[i])
   }
 
   return dt.files
 }
 
-filebokz.removeFiles = function (input, index, count) {
-  var filesArr = Array.from(input.files)
+filebokz.removeFiles = (input, index, count) => {
+  const filesArr = Array.from(input.files)
 
   filesArr.splice(index || 0, count || 1)
   input.files = filebokz.newFileList(filesArr)
@@ -507,14 +507,16 @@ filebokz.removeFiles = function (input, index, count) {
   filebokz.triggerEvent('change', input, { filebokzAction: 'remove' })
 }
 
-filebokz.triggerEvent = function (type, element, data, delay) {
+filebokz.triggerEvent = (type, element, data, delay) => {
   return setTimeout(function () {
-    var e = new Event(type)
+    const e = new Event(type)
 
-    for (var key in data) {
-      if (data.hasOwnProperty(key)) e[key] = data[key]
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) e[key] = data[key]
     }
 
     element.dispatchEvent(e)
   }, delay || 1)
 }
+
+export default filebokz

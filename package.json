@@ -1,6 +1,6 @@
 {
   "name": "filebokz",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A tiny, dependency-free, highly customizable and configurable, easy to use file input with some pretty sweet features.",
   "keywords": [
     "box",
@@ -28,17 +28,28 @@
     "url": "https://github.com/kodie/filebokz/issues"
   },
   "homepage": "https://kodie.github.io/filebokz",
-  "main": "filebokz.js",
   "license": "MIT",
+  "main": "dist/filebokz.js",
+  "module": "filebokz.js",
   "scripts": {
-    "build": "npm run build-css && npm run build-js",
+    "build": "npm run build-css && npm run build-js && npm run minify-js",
     "build-css": "cleancss --batch ./*.css --batch-suffix '.min' --output dist --debug --source-map",
-    "build-js": "uglifyjs filebokz.js --comments /^!/ --compress --mangle --output dist/filebokz.min.js --source-map \"url='filebokz.min.js.map'\" --verbose",
+    "build-js": "rollup --config rollup.config.js",
+    "minify-js": "uglifyjs dist/filebokz.js --comments /^!/ --compress --mangle --output dist/filebokz.min.js --source-map \"url='filebokz.min.js.map'\" --verbose",
     "test": "standard --env browser"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "@rollup/plugin-babel": "^5.3.0",
     "clean-css-cli": "^5.3.3",
-    "standard": "^11.0.1",
+    "core-js": "^3.19.2",
+    "rollup": "^2.60.2",
+    "standard": "^16.0.4",
     "uglify-js": "^3.10.4"
+  },
+  "standard": {
+    "ignore": [
+      "/dist/*"
+    ]
   }
 }
