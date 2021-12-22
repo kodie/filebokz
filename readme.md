@@ -77,6 +77,14 @@ Place the following HTML in your page's head element (check to make sure the ver
 npm install filebokz --save
 ```
 
+```js
+// ES6
+import filebokz from 'filebokz'
+
+// CommonJS
+const filebokz = require('filebokz')
+```
+
 
 ### [GPM](https://github.com/itsahappymedium/gpm)
 

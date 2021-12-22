@@ -24,7 +24,7 @@ $filebokz-focus-bg-color: #fff !default;
 
   background-color: $filebokz-bg-color;
   background-color: var(--bg-color);
-  color: #5185b3;
+  color: $filebokz-color;
   color: var(--color);
   margin: 1rem 0;
   padding: .5rem;
