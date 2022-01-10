@@ -5,7 +5,7 @@
 })(this, (function () { 'use strict';
 
   /*!
-    filebokz v0.1.1 (https://github.com/kodie/filebokz)
+    filebokz v0.1.2 (https://github.com/kodie/filebokz)
     by Kodie Grantham (https://kodieg.com)
   */
   var filebokz = function filebokz(elements, applyClass) {
@@ -373,7 +373,9 @@
       var maxFiles = !multiple ? 1 : Object.prototype.hasOwnProperty.call(fileBoxData, 'maxFiles') ? fileBoxData.maxFiles : null;
       var maxFileSize = fileBoxData.maxFileSize;
       var maxSize = fileBoxData.maxSize;
-      var allowedExtensions = fileBoxData.allowedExtensions ? fileBoxData.allowedExtensions.split(',') : null;
+      var allowedExtensions = fileBoxData.allowedExtensions ? fileBoxData.allowedExtensions.split(',').map(function (ext) {
+        return ext.replace(/^(\.)/, '');
+      }) : null;
       var size = 0;
 
       if (maxFiles && fileList.length > maxFiles) {
@@ -423,6 +425,14 @@
         if (advanced) fileBox.classList.add('is-advanced');
         if (draggable) fileBox.classList.add('is-draggable');
         if (!fileBox.id) fileBox.id = 'filebokz-' + filebokz.count;
+
+        if (fileBox.dataset.allowedExtensions && !input.getAttribute('accept')) {
+          var allowedExtensions = fileBox.dataset.allowedExtensions.split(',').map(function (ext) {
+            return ext.replace(/^([^.])/, '.$1');
+          });
+          input.setAttribute('accept', allowedExtensions.join(','));
+        }
+
         fileBox.addEventListener('dragover', function (e) {
           onDragEnter(e, fileBox);
         }, false);
