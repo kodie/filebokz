@@ -390,7 +390,7 @@ const filebokz = (elements, applyClass) => {
     const maxFiles = !multiple ? 1 : Object.prototype.hasOwnProperty.call(fileBoxData, 'maxFiles') ? fileBoxData.maxFiles : null
     const maxFileSize = fileBoxData.maxFileSize
     const maxSize = fileBoxData.maxSize
-    const allowedExtensions = fileBoxData.allowedExtensions ? fileBoxData.allowedExtensions.split(',') : null
+    const allowedExtensions = fileBoxData.allowedExtensions ? fileBoxData.allowedExtensions.split(',').map(ext => ext.replace(/^(\.)/, '')) : null
     let size = 0
 
     if (maxFiles && fileList.length > maxFiles) {
@@ -444,6 +444,11 @@ const filebokz = (elements, applyClass) => {
       if (advanced) fileBox.classList.add('is-advanced')
       if (draggable) fileBox.classList.add('is-draggable')
       if (!fileBox.id) fileBox.id = 'filebokz-' + filebokz.count
+
+      if (fileBox.dataset.allowedExtensions && !input.getAttribute('accept')) {
+        const allowedExtensions = fileBox.dataset.allowedExtensions.split(',').map(ext => ext.replace(/^([^.])/, '.$1'))
+        input.setAttribute('accept', allowedExtensions.join(','))
+      }
 
       fileBox.addEventListener('dragover', function (e) { onDragEnter(e, fileBox, input) }, false)
       fileBox.addEventListener('dragenter', function (e) { onDragEnter(e, fileBox, input) }, false)
