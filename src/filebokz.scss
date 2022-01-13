@@ -43,7 +43,7 @@
     display: inline-block;
   }
 
-  input {
+  input[type="file"] {
     height: 0.1px;
     opacity: 0;
     overflow: hidden;
