@@ -47,7 +47,7 @@ Visit https://kodie.github.io/filebokz
 
 ### Manual Download
 
-[Download the latest version of filebokz](https://github.com/kodie/minitaur/archive/refs/heads/main.zip) and then place the following HTML in your page's head element:
+[Download the latest version of filebokz](https://github.com/kodie/filebokz/archive/refs/heads/main.zip) and then place the following HTML in your page's head element:
 
 ```html
 <script type="text/javascript" src="dist/filebokz.min.js"></script>
@@ -402,6 +402,8 @@ fileElement.addEventListener('error', function (e) {
 ## Related
 
  - [minitaur](https://github.com/kodie/minitaur) - The ultimate, dependency-free, easy to use, JavaScript plugin for creating and managing modals.
+
+  - [hashjump](https://github.com/kodie/hashjump) - A tiny, dependency-free JavaScript module for handling anchor links and scrolling elements into view.
 
  - [colorfield](https://github.com/kodie/colorfield) - A tiny, dependency-free, color input field helper that utilizes the native color picker.
 
