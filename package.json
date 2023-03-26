@@ -31,6 +31,10 @@
   "license": "MIT",
   "main": "dist/filebokz.js",
   "module": "src/filebokz.js",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
   "scripts": {
     "build": "npm run test && npm run build-css && npm run minify-css && npm run build-js && npm run minify-js",
     "build-css": "sass src:dist",
