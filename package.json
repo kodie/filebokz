@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/kodie/filebokz/issues"
   },
-  "homepage": "https://kodie.github.io/filebokz",
+  "homepage": "https://filebokz.js.org",
   "license": "MIT",
   "main": "dist/filebokz.js",
   "module": "src/filebokz.js",

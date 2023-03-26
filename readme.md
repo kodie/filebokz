@@ -39,7 +39,7 @@ Basically any browser version made after 2016 should work.
 
 ## Demo
 
-Visit https://kodie.github.io/filebokz
+Visit https://filebokz.js.org
 
 
 ## Installation
