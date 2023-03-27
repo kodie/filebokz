@@ -1,5 +1,5 @@
 /*!
-  filebokz v0.1.2 (https://github.com/kodie/filebokz)
+  filebokz v0.1.3 (https://filebokz.js.org)
   by Kodie Grantham (https://kodieg.com)
 */
 .filebokz:not(.is-advanced) .is-advanced, .filebokz.advanced .not-advanced, .filebokz:not(.is-draggable) .is-draggable, .filebokz.draggable .not-draggable, .filebokz.in-focus .not-in-focus, .filebokz:not(.in-focus) .in-focus, .filebokz:not(.is-removing) .is-removing, .filebokz.is-removing .not-removing, .filebokz:not(.is-transferring) .is-transferring, .filebokz.is-transferring .not-transferring, .filebokz:not(.has-files) .files:empty, .filebokz:not(.has-files) .has-files, .filebokz.has-files .no-files, .filebokz:not(.error) .error, .filebokz.error .no-error, .filebokz.js-enabled .not-js-enabled, .filebokz:not(.js-enabled) .js-enabled, .filebokz:not(.js-enabled) input:required:valid ~ .no-files, .filebokz:not(.js-enabled) input:required:valid ~ * .no-files, .filebokz:not(.js-enabled) input:required:invalid ~ .has-files, .filebokz:not(.js-enabled) input:required:invalid ~ * .has-files {
@@ -16,7 +16,7 @@
 .filebokz .file {
   display: inline-block;
 }
-.filebokz input {
+.filebokz input[type=file] {
   height: 0.1px;
   opacity: 0;
   overflow: hidden;

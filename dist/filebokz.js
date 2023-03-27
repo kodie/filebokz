@@ -5,7 +5,7 @@
 })(this, (function () { 'use strict';
 
   /*!
-    filebokz v0.1.2 (https://github.com/kodie/filebokz)
+    filebokz v0.1.3 (https://filebokz.js.org)
     by Kodie Grantham (https://kodieg.com)
   */
   var filebokz = function filebokz(elements, applyClass) {
